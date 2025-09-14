@@ -53,7 +53,7 @@ function PdfUpload() {
       const formData = new FormData();
       formData.append('file', file, file.name);
 
-      const res = await fetch('http://localhost:8080/api/pdf', {
+      const res = await fetch('geminiappb-production.up.railway.app/api/pdf', {
         method: 'POST',
         body: formData,
       });

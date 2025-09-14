@@ -65,7 +65,7 @@ function ImageUpload() {
       const formData = new FormData();
       formData.append('file', compressedBlob, file.name);
 
-      const res = await fetch('http://localhost:8080/api/image', {
+      const res = await fetch('geminiappb-production.up.railway.app/api/image', {
         method: 'POST',
         body: formData,
       });
