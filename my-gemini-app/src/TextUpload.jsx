@@ -26,7 +26,7 @@ function TextUpload() {
     setLoading(true);
     setResponse('');
     try {
-      const res = await fetch('geminiappb-production.up.railway.app/text', {
+      const res = await fetch('geminiappb-production.up.railway.app/api/text', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: input }),
