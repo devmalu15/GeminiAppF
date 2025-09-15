@@ -81,7 +81,7 @@ function PdfAndTextUpload() {
         <input id="pdf-upload" type="file" accept="application/pdf" onChange={handleFileChange} />
         <br />
         <label htmlFor="job-description">Paste Job Description:</label>
-        <textarea id="job-description" value={jobDescription} onChange={handleTextChange} rows="10" cols="60" placeholder="Paste the job description here..." />
+        <textarea id="job-description" value={jobDescription} onChange={handleTextChange} rows="10" placeholder="Paste the job description here..." />
         <br />
         <button type="submit" disabled={loading || !file || !jobDescription}>
           {loading ? 'Analyzing...' : 'Analyze'}
@@ -90,7 +90,7 @@ function PdfAndTextUpload() {
       {displayed && (
         <div className="response">
           <h2>Response:</h2>
-          <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{renderFormatted(displayed)}</pre>
+          <pre>{renderFormatted(displayed)}</pre>
         </div>
       )}
     </div>

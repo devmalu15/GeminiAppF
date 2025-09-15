@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function PdfUpload() {
+function PdfUpload(props) {
   const [file, setFile] = useState(null);
   const [response, setResponse] = useState('');
   const [displayed, setDisplayed] = useState('');
@@ -72,15 +72,13 @@ function PdfUpload() {
         <input type="file" accept="application/pdf" onChange={handleFileChange} />
         <br />
         <button type="submit" disabled={loading || !file}>
-          {loading ? 'Uploading...' : 'Upload'}
+          {loading ? 'Analyzing...' : 'Analyze'}
         </button>
       </form>
       {displayed && (
         <div className="response">
           <h2>Response:</h2>
-          <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
-            {renderFormatted(displayed)}
-          </pre>
+          <pre>{renderFormatted(displayed)}</pre>
         </div>
       )}
     </div>

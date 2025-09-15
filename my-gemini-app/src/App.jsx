@@ -1,66 +1,42 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
-import ImageUpload from './ImageUpload'
 import PdfUpload from './PdfUpload'
-import TextUpload from './TextUpload'
 import PdfAndTextUpload from './PdfAndTextUpload'
+import Navbar from './Navbar'
+import HomePage from './HomePage'
+
+const pages = {
+  home: <HomePage />,
+  pdf: <PdfUpload />,
+  pdfAndTextUploads: <PdfAndTextUpload />,
+};
 
 function App() {
-  const [page, setPage] = useState('text')
+  const [theme, setTheme] = useState('dark');
+  const [page, setPage] = useState('home');
 
-  if (page === 'image') {
-    return (
-      <div>
-        <nav style={{ margin: '1rem' }}>
-          <button onClick={() => setPage('text')}>Text Page</button>
-          <button disabled>Image Page</button>
-          <button onClick={() => setPage('pdf')}>PDF Page</button>
-          <button onClick={() => setPage('pdfAndTextUploads')}>PDF & Text Page</button>
-        </nav>
-        <ImageUpload />
-      </div>
-    )
-  }
+  useEffect(() => {
+    document.body.className = `${theme}-theme`;
+  }, [theme]);
 
-  if (page === 'pdf') {
-    return (
-      <div>
-        <nav style={{ margin: '1rem' }}>
-          <button onClick={() => setPage('text')}>Text Page</button>
-          <button onClick={() => setPage('image')}>Image Page</button>
-          <button disabled>PDF Page</button>
-          <button onClick={() => setPage('pdfAndTextUploads')}>PDF & Text Page</button>
-        </nav>
-        <PdfUpload />
-      </div>
-    )
-  }
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
 
-  if (page === 'pdfAndTextUploads') {
-    return (
-      <div>
-        <nav style={{ margin: '1rem' }}>
-          <button onClick={() => setPage('text')}>Text Page</button>
-          <button onClick={() => setPage('image')}>Image Page</button>
-          <button onClick={() => setPage('pdf')}>PDF Page</button>
-          <button disabled>PDF & Text Page</button>
-        </nav>
-        <PdfAndTextUpload />
-      </div>
-    )
-  }
+  const CurrentPage = pages[page];
 
-  // Text section is now a separate component
   return (
-    <div>
-      <nav style={{ margin: '1rem' }}>
-        <button disabled>Text Page</button>
-        <button onClick={() => setPage('image')}>Image Page</button>
-        <button onClick={() => setPage('pdf')}>PDF Page</button>
-        <button onClick={() => setPage('pdfAndTextUploads')}>PDF & Text Page</button>
-      </nav>
-      <TextUpload />
-    </div>
+    <>
+      <Navbar 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        setPage={setPage}
+        currentPage={page}
+      />
+      <main id="page-content">
+        {page === 'home' ? <HomePage setPage={setPage} /> : CurrentPage}
+      </main>
+    </>
   )
 }
 
